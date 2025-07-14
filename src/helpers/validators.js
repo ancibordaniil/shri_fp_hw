@@ -1,3 +1,21 @@
+import { allPass, compose, equals, prop } from "ramda";
+
+const getStar = prop('star');
+const getTgl = prop('triangle');
+const getSqr = prop('square');
+const getCrcl = prop('circle');
+
+const isFigureRed = equals('red')
+const isFigureGreen = equals('green')
+const isFigureWhite = equals('white')
+
+const isRedStar = compose(isFigureRed, getStar);
+const isGreenSquare = compose(isFigureGreen, getSqr);
+const isWhiteTriangle = compose(isFigureWhite, getTgl);
+const isWhiteCircle = compose(isFigureWhite, getCrcl);
+
+
+
 /**
  * @file Домашка по FP ч. 1
  *
@@ -14,13 +32,7 @@
  */
 
 // 1. Красная звезда, зеленый квадрат, все остальные белые.
-export const validateFieldN1 = ({star, square, triangle, circle}) => {
-    if (triangle !== 'white' || circle !== 'white') {
-        return false;
-    }
-
-    return star === 'red' && square === 'green';
-};
+export const validateFieldN1 = allPass([isRedStar, isGreenSquare, isWhiteTriangle, isWhiteCircle]) 
 
 // 2. Как минимум две фигуры зеленые.
 export const validateFieldN2 = () => false;
